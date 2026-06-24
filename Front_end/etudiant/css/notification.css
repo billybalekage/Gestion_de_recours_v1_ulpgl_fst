@@ -1,0 +1,568 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+/* ==========================================================================
+   1. SYSTEME DE DESIGN (VARIABLES ET AXES DE BASE)
+   ========================================================================== */
+:root {
+    --primary: #003fb1;
+    --primary-container: rgba(26, 86, 219, 0.1);
+    --on-primary-container: #d4dcff;
+    --on-primary: #ffffff;
+    
+    --background: #f9fafb;
+    --surface: #f8f9fa;
+    --surface-lowest: #ffffff;
+    --surface-low: #f3f4f5;
+    --surface-high: #e7e8e9;
+    --surface-highest: #e1e3e4;
+    --surface-container: #edeeef;
+    
+    --on-surface: #191c1d;
+    --on-surface-variant: #434654;
+    --secondary: #555f6d;
+    --secondary-container: #d6e0f1;
+    --on-secondary-container: #121c28;
+    
+    --tertiary: #005065;
+    --tertiary-container: rgba(0, 106, 133, 0.1);
+    --on-tertiary-fixed-variant: #004d62;
+    
+    --outline: #737686;
+    --outline-variant: #c3c5d7;
+    
+    --error: #ba1a1a;
+    --error-container: rgba(255, 218, 214, 0.2);
+    --on-error-container: #93000a;
+    --on-error: #ffffff;
+    
+    --font-main: 'Poppins', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--background);
+    color: var(--on-surface);
+    overflow-x: hidden;
+}
+
+/* Gestion du style global des icônes Google font */
+.fill-icon {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-outlined {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* ==========================================================================
+   2. NAVBAR SUPÉRIEURE (TOPBAR)
+   ========================================================================== */
+.top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background-color: var(--surface-lowest);
+    border-bottom: 1px solid var(--outline-variant);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    z-index: 50;
+}
+
+.app-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.01em;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+    .user-info { display: none; }
+}
+
+.user-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--on-surface);
+}
+
+.user-id {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--on-surface-variant);
+    letter-spacing: 0.05em;
+}
+
+.profile-btn {
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.profile-btn span {
+    font-size: 32px !important;
+    color: var(--primary);
+}
+
+.profile-btn:hover { background-color: var(--surface-low); }
+.profile-btn:active { transform: scale(0.9); }
+
+/* ==========================================================================
+   3. MENU LATÉRAL (SIDEBAR DESKTOP)
+   ========================================================================== */
+.mobile-menu-btn {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 70;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--outline-variant);
+    background: var(--surface-lowest);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.35);
+    backdrop-filter: blur(2px);
+    display: none;
+    z-index: 45;
+}
+
+.sidebar-backdrop.show { display: block; }
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 64px;
+    height: calc(100vh - 64px);
+    width: 256px;
+    background-color: var(--surface);
+    border-right: 1px solid var(--outline-variant);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    gap: 8px;
+    z-index: 40;
+}
+
+@media (max-width: 768px) {
+    .sidebar { display: none !important; }
+    .sidebar.open { display: flex !important; }
+}
+
+@media (min-width: 769px) {
+    .mobile-menu-btn,
+    .sidebar-backdrop { display: none; }
+}
+
+.sidebar-header {
+    margin-bottom: 32px;
+    padding-left: 4px;
+}
+
+.sidebar-category {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--outline);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sidebar-subtitle {
+    font-size: 16px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.nav-links {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+    color: var(--secondary);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.nav-item:hover { background-color: var(--surface-high); }
+
+.nav-item.active {
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+    font-weight: 600;
+    transform: translateX(4px);
+}
+
+.item-text { font-size: 16px; }
+
+.sidebar-footer {
+    border-top: 1px solid var(--outline-variant);
+    padding-top: 16px;
+}
+
+.logout-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    color: var(--error);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.logout-btn:hover { background-color: rgba(186, 26, 26, 0.1); }
+
+/* ==========================================================================
+   4. ZONE ET EN-TÊTE DU CONTENU PRINCIPAL
+   ========================================================================== */
+.main-content {
+    padding: 96px 24px 48px 288px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .main-content { padding: 96px 16px 96px 16px; }
+}
+
+.page-header {
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+@media (min-width: 769px) {
+    .page-header { flex-direction: row; align-items: center; }
+}
+
+.page-title { font-size: 36px; color: var(--on-surface); margin-bottom: 8px; font-weight: 700; letter-spacing: -0.02em; }
+.page-subtitle { font-size: 16px; color: var(--on-surface-variant); }
+
+.btn-mark-all {
+    padding: 12px 24px;
+    background-color: var(--surface-high);
+    color: var(--on-surface);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-mark-all:hover { background-color: var(--surface-highest); }
+
+/* ==========================================================================
+   5. COMPOSANTS DE CARTES NOTIFICATIONS (BENTO BORDER-LEFT STYLE)
+   ========================================================================== */
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.notification-card {
+    background-color: var(--surface-lowest);
+    border: 1px solid var(--outline-variant);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (min-width: 769px) {
+    .notification-card { flex-direction: row; }
+}
+
+.notification-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Ligne d'accentuation à gauche */
+.notification-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 6px;
+}
+.accent-primary::before { background-color: var(--primary); }
+.accent-error::before { background-color: var(--error); }
+.accent-tertiary::before { background-color: var(--tertiary); }
+
+.border-error-light { border-color: rgba(186, 26, 26, 0.3); }
+.state-actionable { opacity: 0.9; }
+.state-read { opacity: 0.6; filter: grayscale(0.5); }
+.bg-surface-container { background-color: var(--surface-container); border-color: rgba(195, 197, 215, 0.5); }
+
+/* Cercles d'icônes à l'intérieur des cartes */
+.card-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.bg-icon-primary { background-color: var(--primary-container); color: var(--primary); }
+.bg-icon-error { background-color: var(--error-container); color: var(--error); }
+.bg-icon-tertiary { background-color: var(--tertiary-container); color: var(--tertiary); }
+.bg-icon-neutral { background-color: rgba(85, 95, 109, 0.15); color: var(--secondary); }
+
+/* Corps structurel de la carte */
+.card-body { flex-grow: 1; }
+
+.card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.time-stamp {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--on-surface-variant);
+    margin-left: auto;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--on-surface);
+    margin-bottom: 8px;
+}
+
+.card-description {
+    font-size: 16px;
+    color: var(--on-surface-variant);
+    margin-bottom: 16px;
+}
+
+/* Badges dynamiques des statuts */
+.tag-status {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+.bg-new { background-color: var(--primary); color: var(--on-primary); }
+
+.tag-category {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 12px;
+    border-radius: 9999px;
+}
+.bg-cat-primary { background-color: #dbe1ff; color: #00174d; }
+.bg-cat-error { background-color: #ffdad6; color: #93000a; }
+.bg-cat-tertiary { background-color: #b9eaff; color: var(--on-tertiary-fixed-variant); }
+.bg-cat-neutral { background-color: var(--secondary-container); color: var(--on-secondary-container); }
+
+/* ==========================================================================
+   6. LES BLOCS DE GRILLE BENTO INTERNES
+   ========================================================================== */
+.info-bento-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(195, 197, 215, 0.3);
+}
+
+@media (min-width: 576px) { .info-bento-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 769px) { .info-bento-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.bg-bento-neutral { background-color: var(--surface-low); }
+.bg-bento-error { background-color: rgba(255, 218, 214, 0.05); border-color: rgba(186, 26, 26, 0.1); }
+.bg-bento-highest { background-color: rgba(225, 227, 228, 0.4); }
+
+.bento-item { display: flex; flex-direction: column; }
+.bento-label { font-size: 12px; font-weight: 600; color: var(--outline); text-transform: uppercase; }
+.bento-value { font-size: 14px; color: var(--on-surface); margin-top: 2px; }
+
+.text-bold { font-weight: 600; }
+.text-italic { font-style: italic; }
+.text-primary { color: var(--primary); }
+.text-error { color: var(--error); }
+
+/* Actions des cartes */
+.card-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+@media (min-width: 769px) { .card-actions { flex-direction: column; } }
+
+/* Boutons d'action contextuels */
+.btn-action-primary, .btn-action-error, .btn-action-outline, .btn-action-text {
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.btn-action-primary { background-color: var(--primary); color: var(--on-primary); }
+.btn-action-primary:hover { background-color: var(--primary-container); }
+
+.btn-action-error { background-color: var(--error); color: var(--on-error); }
+.btn-action-error:hover { opacity: 0.9; }
+
+.btn-action-outline { background-color: transparent; border: 1px solid var(--tertiary); color: var(--tertiary); }
+.btn-action-outline:hover { background-color: var(--tertiary-container); }
+
+.btn-action-text { background-color: transparent; color: var(--on-surface-variant); }
+.btn-action-text:hover { text-decoration: underline; }
+
+.btn-check {
+    padding: 4px;
+    background: none;
+    border: none;
+    color: var(--on-surface-variant);
+    cursor: pointer;
+    border-radius: 50%;
+    align-self: flex-end;
+    transition: background-color 0.2s;
+}
+.btn-check:hover { background-color: var(--surface-high); }
+.checked-icon { padding: 4px; align-self: flex-end; }
+
+/* ==========================================================================
+   7. PAGINATION CONTAINER (CHARGER PLUS)
+   ========================================================================== */
+.pagination-container {
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-load-more {
+    padding: 16px 48px;
+    background-color: var(--surface-lowest);
+    border: 1px solid var(--outline-variant);
+    color: var(--primary);
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+}
+.btn-load-more:hover { background-color: rgba(0, 63, 177, 0.05); }
+.btn-load-more:active { transform: scale(0.95); }
+
+/* ==========================================================================
+   8. MOBILE NAVIGATION BAR (BARRE DU BAS MOBILE-ONLY)
+   ========================================================================== */
+.bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background-color: var(--surface-lowest);
+    border-top: 1px solid var(--outline-variant);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 50;
+}
+
+@media (min-width: 769px) { .bottom-navbar { display: none !important; } }
+
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.bottom-nav-item span:last-child { font-size: 10px; font-weight: 600; }
+
+.link-secondary { color: var(--secondary); }
+.link-primary { color: var(--primary); }
+
+.badge-wrapper { position: relative; }
+.mobile-notification-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--error);
+    border-radius: 50%;
+}

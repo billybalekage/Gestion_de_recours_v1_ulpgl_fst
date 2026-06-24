@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Recours académiques - Attribution de notes</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/attributionCote.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon">
+                <span class="material-symbols-outlined">school</span>
+            </div>
+            <div>
+                <h1 class="sidebar-title">Admin académique</h1>
+                <p class="sidebar-subtitle">Portal v2.4</p>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a class="nav-link active" href="dashboard.html">
+                <span class="material-symbols-outlined icon-filled">dashboard</span>
+                <span>Tableau de bord</span>
+            </a>
+            <a class="nav-link" href="etudiants.html">
+                <span class="material-symbols-outlined">rate_review</span>
+                <span>Étudiants</span>
+            </a>
+            <a class="nav-link" href="professeurs.html">
+                <span class="material-symbols-outlined">inventory_2</span>
+                <span>Professeurs</span>
+            </a>
+            <a class="nav-link" href="recours.html">
+                <span class="material-symbols-outlined">gavel</span>
+                <span>Recours</span>
+            </a>
+            <a class="nav-link" href="atributionCote.html">
+                <span class="material-symbols-outlined">inventory_2</span>
+                <span>Cotes</span>
+            </a>
+            <a class="nav-link" href="cours.html">
+                <span class="material-symbols-outlined">post_add</span>
+                <span>Cours</span>
+            </a>
+            <a class="nav-link" href="configuration.html">
+                <span class="material-symbols-outlined">settings</span>
+                <span>Configuration</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <a class="footer-link logout-link" href="#">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Déconnexion</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-bar">
+        <button id="menu-toggle" class="mobile-menu-btn" type="button"><span class="material-symbols-outlined">menu</span></button>
+            <div class="search-container">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input id="student-search" class="search-input" placeholder="Rechercher par nom ou matricule..." type="text"/>
+            </div>
+            
+            <div class="top-bar-actions">
+                <button class="action-btn badge-btn">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="badge"></span>
+                </button>
+                <button class="action-btn">
+                    <span class="material-symbols-outlined">help_outline</span>
+                </button>
+                <div class="divider"></div>
+                <div class="user-profile">
+                    <img alt="User avatar" class="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACTKkVYxZfR2xowJcbVdhJjY7WICLZ5byDucRNPqY6eIW6v-fn6tbc5rLObwviokDjRAtaZo9IxbrhLRj9HWqQkyqltUwivMTfkPogkOSYjhuPIQbHg9ZIJDU6ZUx3EGPJPMrvdG-HIUlgSjf81C9GtzSUnawuYo58jeJFNi3WJNw8SjQC4-dUHsID_pEtpraLRAq67XaX2La2jDfP7A_97tYb2xpSBtntmEqi_2UJj1MuYVbK89aWLpvzsSgU5tkDpVbkIsDLouE"/>
+                    <span class="user-name">Admin User</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-container">
+            <div class="page-header">
+                <div>
+                    <h2 class="page-title">Gestion des Notes</h2>
+                    <p class="page-subtitle">Attribuez et modifiez les résultats académiques des étudiants.</p>
+                </div>
+                <button class="btn-primary" onclick="toggleModal('gradingModal')">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    Attribuer une note
+                </button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon bg-primary-fixed text-primary">
+                        <span class="material-symbols-outlined text-4xl fill-icon">group</span>
+                    </div>
+                    <div>
+                        <p class="stat-label">Total Étudiants</p>
+                        <p id="total-etudiants" class="stat-value">0</p>
+                        <p class="stat-trend">
+                            <span class="material-symbols-outlined">trending_up</span> +12% ce semestre
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon bg-secondary-fixed text-secondary-fixed">
+                        <span class="material-symbols-outlined text-4xl fill-icon">menu_book</span>
+                    </div>
+                    <div>
+                        <p class="stat-label">Total Cours</p>
+                        <p id="total-cours" class="stat-value">0</p>
+                        <p class="stat-subtext">Actifs dans 5 facultés</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-bar">
+                <div class="filter-search">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input class="filter-input" placeholder="Filtrer par nom ou matricule..." type="text"/>
+                </div>
+                <select id="filter-department" class="select-input">
+                    <option value="">Département: Tous</option>
+                    <option value="genie_informatique">Génie informatique</option>
+                    <option value="genie_mecanique">Génie mécanique</option>
+                    <option value="genie_civil">Génie civil</option>
+                    <option value="genie_electrique">Génie électrique</option>
+                </select>
+                <select id="filter-promotion" class="select-input">
+                    <option value="">Promotion: Toutes</option>
+                    <option value="L1">L1</option>
+                    <option value="L2">L2</option>
+                    <option value="L3">L3</option>
+                    <option value="M1">M1</option>
+                    <option value="M2">M2</option>
+                </select>
+                <button class="btn-icon">
+                    <span class="material-symbols-outlined">tune</span>
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Matricule</th>
+                            <th>Nom et postnom</th>
+                            <th>Département</th>
+                            <th>Promotion</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-table-body">
+                        <tr><td colspan="6" class="text-center">Chargement...</td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="table-pagination">
+                    <p class="pagination-text">Affichage de 3 sur 1,284 étudiants</p>
+                    <div class="pagination-actions">
+                        <button class="btn-icon" disabled>
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <button class="btn-icon">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- API Helper -->
+    <script src="../js/admin/apiHelper.js"></script>
+
+    <!-- Grading moved to grading.html; modal removed -->
+                <div class="form-grid">
+                    <div class="col-span-2">
+                        <label class="form-label">Étudiant</label>
+                        <input class="form-control" id="modalStudentName" placeholder="Nom de l'étudiant" type="text" readonly/>
+                    </div>
+                    <div>
+                        <label class="form-label">Matricule</label>
+                        <input class="form-control" id="modalMatricule" placeholder="ST-000" type="text" readonly/>
+                    </div>
+                    <div>
+                        <label class="form-label">Cours</label>
+                        <select id="course-select" class="form-control" required></select>
+                    </div>
+                    <div>
+                        <label class="form-label">Semestre</label>
+                        <input id="note-semestre" class="form-control" type="number" min="1" max="8" value="1" required/>
+                    </div>
+                    <div>
+                        <label class="form-label">Année universitaire</label>
+                        <input id="note-annee" class="form-control" type="text" value="2025-2026" required/>
+                    </div>
+                    <div>
+                        <label class="form-label">TP</label>
+                        <input id="note-tp" class="form-control" type="number" min="0" max="20" step="0.25"/>
+                    </div>
+                    <div>
+                        <label class="form-label">TD</label>
+                        <input id="note-td" class="form-control" type="number" min="0" max="20" step="0.25"/>
+                    </div>
+                    <div>
+                        <label class="form-label">Interrogation</label>
+                        <input id="note-interrogation" class="form-control" type="number" min="0" max="20" step="0.25"/>
+                    </div>
+                    <div>
+                        <label class="form-label">Examen</label>
+                        <input id="note-examen" class="form-control" type="number" min="0" max="20" step="0.25"/>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn-secondary" onclick="toggleModal('gradingModal')" type="button">Annuler</button>
+                    <button class="btn-submit" type="submit">Confirmer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/admin/nav.js"></script>
+    <script src="../js/admin/atributioncote.js"></script>
+
+</body>
+</html>

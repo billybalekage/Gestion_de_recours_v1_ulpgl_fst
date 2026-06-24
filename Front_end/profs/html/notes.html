@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes professeur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/notes.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo"><span class="material-symbols-outlined icon-filled">school</span></div>
+      <div>
+        <h2 class="brand-title">Enseignant</h2>
+        <p class="brand-version">Portal professeur</p>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-link" href="dashboard.html"><span class="material-symbols-outlined icon-filled">dashboard</span><span>Tableau de bord</span></a>
+      <a class="nav-link" href="students.html"><span class="material-symbols-outlined">groups</span><span>Étudiants</span></a>
+      <a class="nav-link active" href="notes.html"><span class="material-symbols-outlined">school</span><span>Notes</span></a>
+      <a class="nav-link" href="recours.html"><span class="material-symbols-outlined">gavel</span><span>Recours</span></a>
+    </nav>
+    <div class="sidebar-footer"><a class="nav-link logout-link" href="#"><span class="material-symbols-outlined">logout</span><span>Déconnexion</span></a></div>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+      <div class="topbar-left"><button id="menu-toggle" class="mobile-menu-btn"><span class="material-symbols-outlined">menu</span></button><h1 class="main-title">Notes</h1></div>
+      <div class="topbar-search"><div class="search-box"><span class="material-symbols-outlined search-icon">search</span><input id="note-search" placeholder="Rechercher un étudiant..." type="text" /></div></div>
+      <div class="topbar-right"><button class="icon-btn"><span class="material-symbols-outlined">notifications</span></button><div class="divider"></div><div class="user-profile"><div class="user-info"><p class="user-name">Chargement...</p><p class="user-role">Enseignant</p></div></div></div>
+    </header>
+
+    <main class="content-container">
+      <div class="content-header"><div><p class="subtitle">Saisie des notes</p><h2 class="section-title">Notes des étudiants</h2><p class="section-desc">Attribuez et modifiez les notes des étudiants de votre département.</p></div></div>
+
+      <div class="table-container">
+        <div class="table-header"><h3 class="table-title">Étudiants</h3><div class="table-filters"><select id="note-promotion" class="form-control"><option value="">Toutes promotions</option><option value="L1">L1</option><option value="L2">L2</option><option value="L3">L3</option><option value="M1">M1</option><option value="M2">M2</option></select></div></div>
+        <div class="table-responsive"><table><thead><tr><th>Matricule</th><th>Nom</th><th>Postnom</th><th>Email</th><th>Promotion</th><th class="text-right">Actions</th></tr></thead><tbody id="note-students-table-body"><tr><td colspan="6" class="text-center">Chargement…</td></tr></tbody></table></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="note-modal" class="modal-container hidden"><div class="modal-overlay opacity-0"></div><div class="modal-content opacity-0 scale-95 hidden" style="max-width:720px;"><div class="modal-header"><h3 class="modal-title">Attribuer / modifier une note</h3><button class="close-btn" type="button" onclick="closeModal('note-modal')"><span class="material-symbols-outlined">close</span></button></div><div class="modal-body" id="note-modal-body"></div><div class="modal-footer footer-bg"><div class="flex-end"><button class="btn-text" type="button" onclick="closeModal('note-modal')">Annuler</button><button class="btn btn-primary" id="save-note-btn" type="button">Enregistrer</button></div></div></div></div>
+
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/notes.js"></script>
+</body>
+</html>

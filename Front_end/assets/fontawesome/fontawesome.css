@@ -1,0 +1,75 @@
+/* 
+  Font Awesome Icon CSS Fallback
+  Icônes essentielles pour l'application
+  Pour une version complète, téléchargez Font Awesome depuis https://fontawesome.com
+*/
+
+/* Base icons styles */
+.fa-solid::before {
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-weight: 900;
+}
+
+/* Alert icons */
+.fa-triangle-exclamation::before {
+  content: "⚠";
+}
+
+/* User icons */
+.fa-user::before {
+  content: "👤";
+}
+
+.fa-user-shield::before {
+  content: "🛡";
+}
+
+.fa-user-plus::before {
+  content: "👤";
+}
+
+/* Input icons */
+.fa-envelope::before {
+  content: "✉";
+}
+
+.fa-lock::before {
+  content: "🔒";
+}
+
+.fa-eye::before {
+  content: "👁";
+}
+
+/* Form icons */
+.fa-clipboard-list::before {
+  content: "📋";
+}
+
+.fa-circle-info::before {
+  content: "ⓘ";
+}
+
+.fa-circle-plus::before {
+  content: "⊕";
+}
+
+.fa-xmark::before {
+  content: "✕";
+}
+
+.fa-paper-plane::before {
+  content: "✈";
+}
+
+/* Icon size adjustments */
+.input-icon {
+  margin-right: 0.5rem;
+  font-size: 1.1em;
+}
+
+.toggle-password-icon {
+  cursor: pointer;
+  font-size: 1.1em;
+}

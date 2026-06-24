@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Recours académiques | Tableau de bord étudiant</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/student-common.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+  </head>
+  <body>
+    <button
+      id="menu-toggle"
+      class="mobile-menu-btn"
+      type="button"
+      aria-label="Ouvrir le menu"
+    >
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <span class="material-symbols-outlined">school</span>
+        </div>
+        <div>
+          <h1 class="logo-title">Gestion des Recours</h1>
+          <p class="logo-subtitle">Portail étudiant</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-item" href="dashboard.html">
+          <span class="material-symbols-outlined">dashboard</span>
+          <span>Tableau de bord</span>
+        </a>
+        <a class="nav-item" href="recours.html">
+          <span class="material-symbols-outlined">gavel</span>
+          <span>Recours</span>
+        </a>
+        <a class="nav-item" href="notes.html">
+          <span class="material-symbols-outlined">description</span>
+          <span>Notes</span>
+        </a>
+        <a class="nav-item" href="notification.html">
+          <span class="material-symbols-outlined">notifications</span>
+          <span>Notifications</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="nav-item" href="#">
+          <span class="material-symbols-outlined">logout</span>
+          <span>Déconnexion</span>
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-header">
+        <h2 class="header-title">Tableau de bord Étudiant</h2>
+        <div class="header-actions">
+          <div class="search-container">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input
+              class="search-input"
+              placeholder="Rechercher un recours..."
+              type="text"
+            />
+          </div>
+          <div class="header-buttons">
+            <button class="icon-btn">notifications</button>
+            <button class="icon-btn">help_outline</button>
+            <div
+              class="user-info"
+              style="
+                display: flex;
+                flex-direction: column;
+                text-align: right;
+                margin-right: 10px;
+              "
+            >
+              <span class="avatar-text" id="name_etudiants">JD</span>
+              <span
+                class="matricule-text"
+                id="matricule_etudiants"
+                style="font-size: 0.8em; color: gray"
+                >Matricule</span
+              >
+            </div>
+            <div class="user-avatar">
+              <span class="material-symbols-outlined">account_circle</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="dashboard-container">
+        <div class="stats-grid">
+          <div class="stat-card appeal-card">
+            <div class="card-header">
+              <div class="card-icon bg-primary-fixed text-primary-variant">
+                <span class="material-symbols-outlined">folder_open</span>
+              </div>
+              <span class="badge bg-container-high">Total</span>
+            </div>
+            <p class="card-label">Total recours</p>
+            <p class="card-value" id="stat-total">0</p>
+          </div>
+          <div class="stat-card appeal-card">
+            <div class="card-header">
+              <div
+                class="card-icon bg-secondary-container text-secondary-container"
+              >
+                <span class="material-symbols-outlined">pending_actions</span>
+              </div>
+              <span class="badge bg-secondary-dim">Actif</span>
+            </div>
+            <p class="card-label">En attente</p>
+            <p class="card-value" id="stat-pending">0</p>
+          </div>
+          <div class="stat-card appeal-card border-tertiary">
+            <div class="card-header">
+              <div class="card-icon bg-tertiary-fixed text-tertiary-variant">
+                <span class="material-symbols-outlined">check_circle</span>
+              </div>
+              <span class="badge bg-tertiary-dim">Succès</span>
+            </div>
+            <p class="card-label">Validés</p>
+            <p class="card-value" id="stat-accepted">0</p>
+          </div>
+          <div class="stat-card appeal-card">
+            <div class="card-header">
+              <div class="card-icon bg-error-container text-error-container">
+                <span class="material-symbols-outlined">cancel</span>
+              </div>
+              <span class="badge bg-error-dim">Refusé</span>
+            </div>
+            <p class="card-label">Refusés</p>
+            <p class="card-value" id="stat-refused">0</p>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <div class="table-header">
+            <h4 class="table-title">Recours Récents</h4>
+            <a class="text-link" href="recours.html">Voir tout</a>
+          </div>
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Référence</th>
+                  <th>Matière</th>
+                  <th>Type</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="recent-recours-body">
+                <tr>
+                  <td colspan="6" class="text-center">Chargement…</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="info-banner">
+          <div class="banner-content">
+            <h5 class="banner-title">Guide des Recours Académiques</h5>
+            <p class="banner-text">
+              Assurez-vous de joindre toutes les pièces justificatives
+              nécessaires (copies de copies, certificats médicaux, etc.) pour
+              augmenter vos chances de validation. Le délai de traitement moyen
+              est de 7 jours ouvrables.
+            </p>
+            <button class="btn btn-secondary">Consulter le Règlement</button>
+          </div>
+          <div class="banner-overlay"></div>
+          <span class="material-symbols-outlined banner-bg-icon">info</span>
+        </div>
+      </div>
+    </main>
+
+    <div class="modal-overlay hidden" id="appeal-modal">
+      <div class="modal-content scale-95">
+        <div class="modal-header">
+          <div>
+            <h3 class="modal-title">Nouveau Recours</h3>
+            <p class="modal-subtitle">
+              Remplissez le formulaire ci-dessous avec précision.
+            </p>
+          </div>
+          <button class="close-btn" onclick="toggleModal('appeal-modal')">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+
+        <form class="modal-form" id="recours-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label-tag">Objet du recours</label>
+              <input
+                class="form-input"
+                id="recours-objet"
+                name="objet"
+                placeholder="Ex: Révision de note d'examen"
+                type="text"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label-tag">Année universitaire</label>
+              <input
+                class="form-input"
+                id="recours-annee"
+                name="annee"
+                placeholder="2024-2025"
+                type="text"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label-tag">Cours concerné</label>
+            <select
+              class="form-select"
+              id="recours-cours"
+              name="cours_0"
+              required
+            >
+              <option value="">Sélectionnez un cours</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label-tag">Type(s) d’évaluation</label>
+            <div class="notes-grid" id="eval-options">
+              <label class="note-input-wrapper"
+                ><input type="checkbox" value="tp" /> TP</label
+              >
+              <label class="note-input-wrapper"
+                ><input type="checkbox" value="td" /> TD</label
+              >
+              <label class="note-input-wrapper"
+                ><input type="checkbox" value="interrogation" />
+                Interrogation</label
+              >
+              <label class="note-input-wrapper"
+                ><input type="checkbox" value="examen" /> Examen</label
+              >
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label-tag">Description détaillée</label>
+            <textarea
+              class="form-input"
+              id="recours-description"
+              name="description"
+              placeholder="Expliquez les raisons de votre recours..."
+              rows="4"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label-tag">Pièces jointes</label>
+            <input
+              class="form-input"
+              id="recours-files"
+              name="attachments_0"
+              type="file"
+              multiple
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn-cancel"
+              onclick="toggleModal('appeal-modal')"
+              type="button"
+            >
+              Annuler
+            </button>
+            <button class="btn btn-primary" type="submit">
+              Soumettre le Recours
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/sidebar.js"></script>
+  </body>
+</html>

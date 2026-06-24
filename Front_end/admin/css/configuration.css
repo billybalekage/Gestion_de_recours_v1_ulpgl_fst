@@ -1,0 +1,564 @@
+:root {
+    /* Palette tirée de la configuration originale */
+    --primary: #00236f;
+    --primary-container: #1e3a8a;
+    --primary-fixed: #dce1ff;
+    --primary-fixed-dim: #b6c4ff;
+    --on-primary-fixed: #00164e;
+    --on-primary-fixed-variant: #264191;
+    
+    --secondary: #505f76;
+    --secondary-container: #d0e1fb;
+    --secondary-fixed-dim: #b7c8e1;
+    --on-secondary-fixed: #0b1c30;
+    --on-secondary-fixed-variant: #38485d;
+    --on-secondary-container: #54647a;
+
+    --tertiary: #4b1c00;
+    --tertiary-fixed: #ffdbcb;
+    --on-tertiary-fixed-variant: #773205;
+
+    --error: #ba1a1a;
+    --error-container: #ffdad6;
+    --on-error-container: #93000a;
+
+    --background: #f9f9f9;
+    --surface: #f9f9f9;
+    --surface-dim: #dadada;
+    --surface-container: #eeeeee;
+    --surface-container-low: #f3f3f4;
+    --surface-container-high: #e8e8e8;
+    --surface-container-highest: #e2e2e2;
+    
+    --on-surface: #1a1c1c;
+    --on-surface-variant: #444651;
+    --outline: #757682;
+    --outline-variant: #c5c5d3;
+    
+    /* Layout Variables */
+    --sidebar-width: 280px;
+    --radius-default: 0.25rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background);
+    color: var(--on-surface);
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    vertical-align: middle;
+}
+.icon-filled {
+    font-variation-settings: 'FILL' 1 !important;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: var(--sidebar-width);
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #1e293b;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+    padding: 24px 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin-left: var(--sidebar-width);
+}
+
+@media (max-width: 1023px) {
+    .sidebar {
+        display: none;
+    }
+    .sidebar.flex {
+        display: flex !important;
+    }
+    .main-wrapper {
+        margin-left: 0;
+    }
+}
+
+.sidebar-header {
+    padding: 0 24px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.brand-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-default);
+    background-color: var(--primary-fixed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-logo .material-symbols-outlined {
+    color: var(--primary);
+}
+
+.brand-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.5;
+}
+.brand-version {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--outline-variant);
+    letter-spacing: 0.05em;
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 0 8px;
+}
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 16px;
+    border-radius: var(--radius-default);
+    text-decoration: none;
+    color: var(--outline-variant);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.nav-link:hover {
+    color: white;
+    background-color: var(--on-secondary-fixed-variant);
+}
+.nav-link.active {
+    border-left: 4px solid var(--primary-fixed);
+    background-color: rgba(38, 65, 145, 0.2);
+    color: white;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding: 32px 8px 0 8px;
+    border-top: 1px solid rgba(56, 72, 93, 0.3);
+}
+.btn-new-appeal {
+    width: 100%;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: var(--primary-fixed);
+    color: var(--on-primary-fixed);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 0;
+    border-radius: var(--radius-lg);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-new-appeal:active {
+    transform: scale(0.95);
+}
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 64px;
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--outline-variant);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.mobile-menu-btn {
+    display: none;
+    padding: 4px;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.mobile-menu-btn:hover {
+    background-color: var(--surface-container-low);
+}
+@media (max-width: 1023px) {
+    .mobile-menu-btn { display: block; }
+}
+
+.main-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary);
+    letter-spacing: -0.01em;
+}
+
+.topbar-search {
+    flex: 1;
+    max-width: 576px;
+    padding: 0 32px;
+}
+@media (max-width: 767px) {
+    .topbar-search { display: none; }
+}
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: var(--surface-container-low);
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    padding: 4px 16px;
+    transition: all 0.2s;
+}
+.search-box:focus-within {
+    border-color: rgba(0, 35, 111, 0.2);
+    background-color: white;
+}
+.search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 4px 0;
+    font-size: 14px;
+    color: var(--on-surface);
+}
+.search-icon {
+    color: var(--outline);
+    margin-right: 8px;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.icon-btn {
+    padding: 4px;
+    color: var(--on-surface-variant);
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.icon-btn:hover {
+    background-color: var(--surface-container-low);
+}
+.icon-btn:active { transform: scale(0.95); }
+
+.divider {
+    width: 1px;
+    height: 32px;
+    background-color: var(--outline-variant);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-fixed-dim);
+}
+.user-info {
+    display: block;
+}
+@media (max-width: 639px) {
+    .user-info { display: none; }
+}
+.user-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--on-surface);
+}
+.user-role {
+    font-size: 10px;
+    color: var(--outline);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.content-container {
+    flex: 1;
+    padding: 24px;
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.content-header {
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+@media (min-width: 768px) {
+    .content-header {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+}
+.subtitle {
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+.section-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--on-surface);
+    line-height: 1.25;
+}
+.section-desc {
+    color: var(--on-surface-variant);
+    font-size: 14px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 8px;
+}
+.btn {
+    padding: 8px 16px;
+    border-radius: var(--radius-lg);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-secondary {
+    border: 1px solid var(--outline-variant);
+    background-color: transparent;
+    color: var(--on-surface);
+}
+.btn-secondary:hover { background-color: var(--surface-container); }
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+}
+.btn-primary:hover { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+
+/* ==========================================================================
+   MODALS STYLES
+   ========================================================================== */
+
+/* Structure principale du modal */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Masquage strict du modal */
+.modal.hidden {
+    display: none !important;
+}
+
+/* Arrière-plan semi-transparent */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 23, 42, 0.6); /* Fond sombre ardoise estompé */
+    backdrop-filter: blur(4px); /* Léger effet de flou en arrière-plan */
+}
+
+/* Boîte de contenu du modal */
+.modal-content {
+    position: relative;
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh; /* Empêche le modal de dépasser de l'écran */
+}
+
+/* En-tête du modal */
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 24px;
+    border-bottom: 1px solid var(--outline-variant);
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.modal-subtitle {
+    font-size: 12px;
+    color: var(--outline);
+    margin-top: 2px;
+}
+
+/* Bouton de fermeture (X) */
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--outline);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+    background-color: var(--surface-container-low);
+    color: var(--on-surface);
+}
+
+/* Corps du formulaire */
+.modal-form {
+    padding: 24px;
+    overflow-y: auto; /* Permet le scroll interne si le formulaire est grand */
+}
+
+/* Organisation des champs */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 640px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--on-surface-variant);
+}
+
+/* Inputs, Textareas et Selects */
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--on-surface);
+    background-color: white;
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-lg);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 35, 111, 0.1);
+}
+
+.form-control::placeholder {
+    color: var(--outline);
+}
+
+/* Zone d'actions en bas */
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--outline-variant);
+    color: var(--secondary);
+    padding: 10px 16px;
+    border-radius: var(--radius-lg);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-outline:hover {
+    background-color: var(--surface-container-low);
+    color: var(--on-surface);
+}
+
+.btn-submit {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: var(--radius-lg);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-container);
+}

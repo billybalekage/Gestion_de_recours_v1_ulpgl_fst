@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajouter étudiant</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/etudiants.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="sidebar-logo-container">
+        <div class="logo-box">AA</div>
+        <div>
+          <h1 class="logo-title">Admin académique</h1>
+          <p class="logo-subtitle">Portal v2.4</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link active" href="dashboard.html">
+          <span class="material-symbols-outlined icon-filled">dashboard</span>
+          <span>Tableau de bord</span>
+        </a>
+        <a class="nav-link" href="etudiants.html">
+          <span class="material-symbols-outlined">rate_review</span>
+          <span>Étudiants</span>
+        </a>
+        <a class="nav-link" href="professeurs.html">
+          <span class="material-symbols-outlined">inventory_2</span>
+          <span>Professeurs</span>
+        </a>
+        <a class="nav-link" href="recours.html">
+          <span class="material-symbols-outlined">gavel</span>
+          <span>Recours</span>
+        </a>
+        <a class="nav-link" href="atributionCote.html">
+          <span class="material-symbols-outlined">inventory_2</span>
+          <span>Cotes</span>
+        </a>
+        <a class="nav-link" href="cours.html">
+          <span class="material-symbols-outlined">post_add</span>
+          <span>Cours</span>
+        </a>
+        <a class="nav-link" href="configuration.html">
+          <span class="material-symbols-outlined">settings</span>
+          <span>Configuration</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="nav-link" href="#">
+          <span class="material-symbols-outlined">logout</span>
+          <span class="font-label-md">Déconnexion</span>
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-navbar">
+        <div class="search-container">
+          <div class="search-wrapper">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input
+              id="student-search"
+              class="search-input"
+              placeholder="Rechercher par nom ou matricule..."
+              type="text"
+            />
+          </div>
+        </div>
+        <div class="navbar-actions">
+          <div class="navbar-icons">
+            <span class="material-symbols-outlined icon-btn"
+              >notifications</span
+            >
+            <span class="material-symbols-outlined icon-btn">help_outline</span>
+          </div>
+          <div class="user-profile">
+            <div class="user-info">
+              <p class="user-name">Chargement...</p>
+              <p class="user-role">Administrateur</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+
+      <div class="page-header-container">
+        <h2 class="page-title">Ajouter un étudiant</h2>
+      </div>
+
+      <div class="form-card">
+        <form id="add-student-form-page" class="form-grid">
+          <div class="form-group">
+            <label>Nom</label>
+            <input
+              id="student-name"
+              class="form-control"
+              required
+              type="text"
+            />
+          </div>
+          <div class="form-group">
+            <label>Postnom</label>
+            <input
+              id="student-postnom"
+              class="form-control"
+              required
+              type="text"
+            />
+          </div>
+          <div class="form-group">
+            <label>Prénom</label>
+            <input
+              id="student-prenom"
+              class="form-control"
+              required
+              type="text"
+            />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              id="student-email"
+              class="form-control"
+              required
+              type="email"
+            />
+          </div>
+          <div class="form-group">
+            <label>Sexe</label>
+            <select id="student-sexe" class="form-control" required>
+              <option value="" disabled selected>Sélectionnez</option>
+              <option value="M">M</option>
+              <option value="F">F</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Téléphone</label>
+            <input
+              id="student-telephone"
+              class="form-control"
+              required
+              type="tel"
+            />
+          </div>
+          <div class="form-group">
+            <label>Promotion</label>
+            <select id="student-promotion" class="form-control" required>
+              <option value="" disabled selected>Sélectionnez</option>
+              <option value="L1">L1</option>
+              <option value="L2">L2</option>
+              <option value="L3">L3</option>
+              <option value="M1">M1</option>
+              <option value="M2">M2</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Département</label>
+            <select id="student-department" class="form-control" required>
+              <option value="" disabled selected>Sélectionnez</option>
+              <option value="genie_electrique">Génie Électrique</option>
+              <option value="genie_informatique">Génie Informatique</option>
+              <option value="genie_mecanique">Génie Mécanique</option>
+              <option value="genie_civil">Génie Civile</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Date de naissance</label>
+            <input
+              id="student-date-naissance"
+              class="form-control"
+              type="date"
+            />
+          </div>
+          <div class="form-group">
+            <label>Matricule</label>
+            <input id="student-matricule" class="form-control" type="text" />
+          </div>
+          <div class="form-actions">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              onclick="window.history.back()"
+            >
+              Annuler
+            </button>
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script src="../js/admin/apiHelper.js"></script>
+    <script>
+      document
+        .getElementById("add-student-form-page")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const payload = {
+            name: document.getElementById("student-name").value.trim(),
+            postnom: document.getElementById("student-postnom").value.trim(),
+            prenom: document.getElementById("student-prenom").value.trim(),
+            sexe: document.getElementById("student-sexe").value,
+            matricule: document
+              .getElementById("student-matricule")
+              .value.trim(),
+            date_naissance: document.getElementById("student-date-naissance")
+              .value,
+            email: document.getElementById("student-email").value.trim(),
+            telephone: document
+              .getElementById("student-telephone")
+              .value.trim(),
+            promotion: document.getElementById("student-promotion").value,
+            department: document.getElementById("student-department").value,
+          };
+          try {
+            const response = await AdminAPI.post("/etudiants/add", payload);
+            console.log("Student add response", response);
+            alert("Étudiant ajouté");
+            window.location.href = "etudiants.html";
+          } catch (err) {
+            console.error(err);
+            alert(err.message || "Erreur lors de l'ajout");
+          }
+        });
+    </script>
+  </body>
+</html>

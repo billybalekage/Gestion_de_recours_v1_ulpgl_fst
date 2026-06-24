@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0"
+      rel="stylesheet"
+    />
+    <title>Définir une Période de Recours</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/configuration.css" />
+    <style>
+      .form-container {
+        max-width: 700px;
+        margin: 40px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .page-header {
+        margin-bottom: 24px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <div class="page-header">
+        <h2 class="modal-title" style="font-size: 22px">
+          Définir une Période de Recours
+        </h2>
+        <p class="modal-subtitle">
+          Ouvrez une session de réclamation pour la promotion et le département
+          ciblés.
+        </p>
+      </div>
+
+      <form class="modal-form" id="periodeRecoursForm" style="padding: 0">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Année Universitaire</label>
+            <input
+              type="text"
+              name="annee_universitaire"
+              class="form-control"
+              placeholder="Ex: 2025-2026"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Semestre</label>
+            <input
+              type="number"
+              name="semestre"
+              class="form-control"
+              placeholder="Ex: 1"
+              min="1"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-grid" style="margin-top: 15px">
+          <div class="form-group">
+            <label class="form-label">Date de Début</label>
+            <input
+              type="date"
+              name="date_debut"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date de Fin</label>
+            <input type="date" name="date_fin" class="form-control" required />
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 15px">
+          <label class="form-label">Département Concerné</label>
+          <select
+            name="department"
+            id="selectDepartment"
+            class="form-control"
+            required
+          >
+            <option value="" disabled selected>
+              Sélectionnez un département...
+            </option>
+            <option value="genie_electrique">Génie Électrique</option>
+            <option value="genie_informatique">Génie Informatique</option>
+            <option value="genie_mecanique">Génie Mécanique</option>
+            <option value="genie_civil">Génie Civil</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-top: 15px">
+          <label class="form-label">Promotion Concernée</label>
+          <select
+            name="promotion"
+            id="selectPromotion"
+            class="form-control"
+            required
+          >
+            <option value="" disabled selected>
+              Sélectionnez une promotion...
+            </option>
+            <option value="L1">Licence 1 (L1)</option>
+            <option value="L2">Licence 2 (L2)</option>
+            <option value="L3">Licence 3 (L3)</option>
+            <option value="M1">Master 1 (M1)</option>
+            <option value="M2">Master 2 (M2)</option>
+          </select>
+        </div>
+
+        <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee" />
+
+        <label class="form-label" style="margin-bottom: 8px; display: block"
+          >Matières associées à cette promotion</label
+        >
+        <div id="coursContainer" style="margin-bottom: 15px"></div>
+
+        <button
+          type="button"
+          class="btn btn-outline"
+          onclick="ajouterBlocCours()"
+          style="
+            width: 100%;
+            margin-bottom: 25px;
+            border-style: dashed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+          "
+        >
+          <span class="material-symbols-outlined">add_circle</span> Ajouter un
+          cours ciblé
+        </button>
+
+        <div class="form-actions">
+          <button
+            class="btn btn-outline"
+            type="button"
+            onclick="window.location.href = 'configuration.html'"
+          >
+            Annuler
+          </button>
+          <button class="btn btn-submit" type="submit">Créer la période</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="../js/admin/apiHelper.js"></script>
+    <script>
+      let coursCount = 0;
+      let listeCoursGlobale = [];
+      let coursCharges = false;
+
+      // 1. Récupération initiale des cours depuis l'API
+      async function prechargerCours() {
+        try {
+          if (typeof AdminAPI !== "undefined") {
+            const result = await AdminAPI.get("/cours/admin-list");
+            listeCoursGlobale = Array.isArray(result)
+              ? result
+              : result.cours || result.data || [];
+            coursCharges = true;
+            console.log("Cours BDD chargés :", listeCoursGlobale.length);
+          }
+        } catch (error) {
+          console.error("Erreur lors de la récupération des matières :", error);
+        }
+      }
+
+      // 2. Génération et filtrage strict (Département + Promotion)
+      async function ajouterBlocCours() {
+        const container = document.getElementById("coursContainer");
+        if (!container) return;
+
+        if (!coursCharges) {
+          container.innerHTML = `<p style="color: #666; font-style: italic;" id="loading-text">Synchronisation avec la base de données...</p>`;
+          await prechargerCours();
+          const loadingText = document.getElementById("loading-text");
+          if (loadingText) loadingText.remove();
+        }
+
+        const depSelected = document.getElementById("selectDepartment").value;
+        const promoSelected = document.getElementById("selectPromotion").value;
+
+        // Sécurité utilisateur
+        if (!depSelected || !promoSelected) {
+          alert(
+            "Sélectionnez d'abord le département et la promotion (L1, L2...) pour filtrer les cours.",
+          );
+          return;
+        }
+
+        coursCount++;
+        const bloc = document.createElement("div");
+        bloc.id = `bloc-cours-${coursCount}`;
+        bloc.style.display = "flex";
+        bloc.style.gap = "10px";
+        bloc.style.marginBottom = "10px";
+
+        bloc.innerHTML = `
+          <select name="course_ids" class="form-control" required>
+            <option value="" disabled selected>Choisir un cours...</option>
+          </select>
+          <button type="button" class="btn" onclick="document.getElementById('${bloc.id}').remove()" style="background: var(--error, #ff4d4d); color: white; border: none; padding: 0 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center;">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+        `;
+        container.appendChild(bloc);
+
+        const select = bloc.querySelector("select");
+
+        // Filtrage croisé strict
+        const coursFiltres = listeCoursGlobale.filter((c) => {
+          return c.department === depSelected && c.promotion === promoSelected;
+        });
+
+        if (coursFiltres.length === 0) {
+          select.innerHTML = `<option value="" disabled selected>Aucun cours trouvé pour ${promoSelected} (${depSelected})</option>`;
+        } else {
+          coursFiltres.forEach((c) => {
+            const option = document.createElement("option");
+            option.value = c.id;
+            option.textContent = c.title;
+            select.appendChild(option);
+          });
+        }
+      }
+
+     // 3. Soumission vers l'API globale
+document.getElementById("periodeRecoursForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const courseSelects = e.target.querySelectorAll('select[name="course_ids"]');
+  const course_ids = Array.from(courseSelects).map(s => Number(s.value)).filter(v => !isNaN(v) && v > 0);
+
+  if (course_ids.length === 0) {
+    alert("Veuillez lister au moins une matière avant d'enregistrer.");
+    return;
+  }
+
+  const payload = {
+    annee_universitaire: formData.get("annee_universitaire"),
+    semestre: Number(formData.get("semestre")),
+    date_debut: formData.get("date_debut"),
+    date_fin: formData.get("date_fin"),
+    promotion: formData.get("promotion"),
+    department: formData.get("department"), 
+    course_ids: course_ids
+  };
+
+  try {
+    await AdminAPI.post("/periode-recours/add", payload);
+    alert("Période enregistrée avec succès !");
+    window.location.href = "configuration.html";
+  } catch (error) {
+    alert(error.message || "Erreur réseau.");
+  }
+});
+    </script>
+  </body>
+</html>

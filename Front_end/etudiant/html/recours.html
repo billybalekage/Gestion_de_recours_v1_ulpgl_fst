@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Recours académiques | Mes recours</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/student-common.css" />
+    <link rel="stylesheet" href="../css/recours.css" />
+  </head>
+  <body>
+    <button id="menu-toggle" class="mobile-menu-btn" type="button" aria-label="Ouvrir le menu">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-container">
+          <div class="brand-icon">
+            <span class="material-symbols-outlined icon-filled">school</span>
+          </div>
+          <div>
+            <h1 class="brand-title">Gestion des Recours</h1>
+            <p class="brand-subtitle">Portail étudiant</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link" href="dashboard.html">
+          <span class="material-symbols-outlined">dashboard</span>
+          <span>Tableau de bord</span>
+        </a>
+        <a class="nav-link" href="recours.html">
+          <span class="material-symbols-outlined icon-filled">gavel</span>
+          <span>Mes recours</span>
+        </a>
+        <a class="nav-link" href="notes.html">
+          <span class="material-symbols-outlined">post_add</span>
+          <span>Notes</span>
+        </a>
+        <a class="nav-link" href="notification.html">
+          <span class="material-symbols-outlined">notifications</span>
+          <span>Notifications</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="nav-link" href="#">
+          <span class="material-symbols-outlined">logout</span>
+          <span>Déconnexion</span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="main-wrapper">
+      <header class="main-header">
+        <div class="header-left">
+          <h2 class="header-title">Recours académiques</h2>
+          <div class="search-bar">
+            <span class="material-symbols-outlined">search</span>
+            <input placeholder="Rechercher un recours..." type="text" />
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="icon-btn relative">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="badge-dot"></span>
+          </button>
+          <button class="icon-btn">
+            <span class="material-symbols-outlined">help_outline</span>
+          </button>
+          <div class="user-profile">
+            <div class="user-info">
+              <p class="user-name" id="name_etudiants">Chargement...</p>
+              <p class="user-class" id="matricule_etudiants" style="font-size: 0.8em; color: gray">Matricule</p>
+            </div>
+            <img alt="User avatar" class="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU_431vAb06pGTPAEWTC1OqBAKpO0J9gLe0q228X6i-llx3Wnhn4G3j5O6WLxUxnj23TMpZTKi_7wnLj5yOH4-yGDDDXAyhSlezvRqEyEDufNWHCFzexauGyo9ObUKqTB-a1hz1voZ1CjjvJVMuBAeuA5FdgHV95NDXRoCUxdCehjHy0sNYe-BWSlDvVACJk6tXWHEB-4sC6tAsndjQaFuOen81xlNrn-7hFuxJqnShY_X3Bz_EATNiswcqL5qyVxSpvFZCNtNpXs" />
+          </div>
+        </div>
+      </header>
+
+      <main class="content-canvas">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Mes Recours Académiques</h1>
+            <p class="page-subtitle">Suivez l'état de vos demandes et soumettez de nouveaux recours.</p>
+          </div>
+          <button id="annees_academique" class="btn btn-action shadow" onclick="toggleModal('appealModal')">
+            <span class="material-symbols-outlined">post_add</span> Ajouter un recours
+          </button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="card stat-card">
+            <div class="stat-icon icon-pending"><span class="material-symbols-outlined">folder_open</span></div>
+            <div><p class="stat-label">Total</p><p class="stat-value" id="stat-total">0</p></div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon icon-pending"><span class="material-symbols-outlined">pending_actions</span></div>
+            <div><p class="stat-label">En attente</p><p class="stat-value" id="stat-pending">0</p></div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon icon-success"><span class="material-symbols-outlined">check_circle</span></div>
+            <div><p class="stat-label">Acceptés</p><p class="stat-value" id="stat-accepted">0</p></div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon icon-error"><span class="material-symbols-outlined">cancel</span></div>
+            <div><p class="stat-label">Rejetés</p><p class="stat-value" id="stat-refused">0</p></div>
+          </div>
+        </div>
+
+        <section class="card table-section">
+          <div class="table-header">
+            <h3 class="table-title">Historique des Recours</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Référence</th>
+                  <th>Matière / Examen</th>
+                  <th>Date de dépôt</th>
+                  <th>Statut</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="recent-recours-body">
+                <tr><td colspan="5" class="text-center">Chargement des recours…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal hidden" id="appealModal">
+      <div class="modal-overlay" onclick="toggleModal('appealModal')"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h3 class="modal-title">Nouveau Recours Académique</h3>
+            <p class="modal-subtitle">Sélectionnez uniquement parmi les cours ouverts au recours.</p>
+          </div>
+          <button class="close-btn" onclick="toggleModal('appealModal')" type="button">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+
+        <form class="modal-form" id="recoursForm" enctype="multipart/form-data">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Objet du recours</label>
+              <input type="text" name="objet" class="form-control" placeholder="Ex: Contestation de note" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Année Universitaire</label>
+              <input id="anneeAcademiqueInput" type="text" name="annee" class="form-control" readonly required style="background-color: #f1f5f9; color: #64748b; cursor: not-allowed;" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Description globale</label>
+            <textarea name="description" class="form-control" rows="2" required></textarea>
+          </div>
+
+          <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee" />
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Nom complet de l'Étudiant</label>
+              <input id="studentFullName" type="text" class="form-control" readonly style="background-color: #f1f5f9; color: #64748b; cursor: not-allowed;" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Matricule</label>
+              <input id="studentMatricule" type="text" class="form-control" readonly style="background-color: #f1f5f9; color: #64748b; cursor: not-allowed;" />
+            </div>
+          </div>
+
+          <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee" />
+          <input type="hidden" id="activeIndexes" name="activeIndexes" value="[]" />
+          
+          <div id="coursContainer"></div>
+
+          <button type="button" class="btn btn-outline" onclick="ajouterBlocCours()" style="width: 100%; margin-bottom: 20px; border-style: dashed" id="btn-ouvrir-recours">
+            <span class="material-symbols-outlined">add_circle</span> Ajouter un cours concerné
+          </button>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="certify" required />
+            <label for="certify" class="checkbox-label">Je certifie l'exactitude des informations fournies.</label>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-outline" onclick="toggleModal('appealModal')" type="button">Annuler</button>
+            <button class="btn btn-submit" type="submit">Envoyer le recours</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="../js/recours.js"></script>
+    <script src="../js/sidebar.js"></script>
+  </body>
+</html>

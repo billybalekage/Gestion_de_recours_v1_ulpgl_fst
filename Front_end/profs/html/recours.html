@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recours | Professeur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0" rel="stylesheet"/>
+  <link href="../css/style.css" rel="stylesheet" />
+  <link href="../css/recours.css" rel="stylesheet" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo"><span class="material-symbols-outlined icon-filled">school</span></div>
+      <div>
+        <h2 class="brand-title">Enseignant</h2>
+        <p class="brand-version">Portal professeur</p>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-link" href="dashboard.html"><span class="material-symbols-outlined icon-filled">dashboard</span><span>Tableau de bord</span></a>
+      <a class="nav-link" href="students.html"><span class="material-symbols-outlined">groups</span><span>Étudiants</span></a>
+      <a class="nav-link" href="notes.html"><span class="material-symbols-outlined">school</span><span>Notes</span></a>
+      <a class="nav-link active" href="recours.html"><span class="material-symbols-outlined">gavel</span><span>Recours</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a class="nav-link logout-link" href="#"><span class="material-symbols-outlined">logout</span><span>Déconnexion</span></a>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button id="menu-toggle" class="mobile-menu-btn"><span class="material-symbols-outlined">menu</span></button>
+        <h1 class="main-title">Recours</h1>
+      </div>
+      <div class="topbar-search">
+        <div class="search-box">
+          <span class="material-symbols-outlined search-icon">search</span>
+          <input id="prof-recours-search" placeholder="Rechercher…" type="text"/>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn"><span class="material-symbols-outlined">notifications</span></button>
+        <div class="divider"></div>
+        <div class="user-profile"><div class="user-info"><p class="user-name" id="prof-name">Chargement...</p><p class="user-role">Enseignant</p></div></div>
+      </div>
+    </header>
+
+    <main class="content-container">
+      <div class="content-header">
+        <div>
+          <p class="subtitle">Recours</p>
+          <h2 class="section-title">Recours affectés à vos cours</h2>
+          <p class="section-desc">Traitez les recours pour vos cours. Votre décision sera transmise à l'administration pour publication.</p>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <div class="table-header">
+          <h3 class="table-title">Recours à traiter</h3>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <select id="prof-status-filter" class="form-control" style="min-width:160px;padding:8px 12px;">
+              <option value="">Tous les statuts</option>
+              <option value="en_attente">En attente</option>
+              <option value="en_cours">En cours</option>
+            </select>
+            <button id="refresh-prof-recours" class="btn btn-secondary" type="button">
+              <span class="material-symbols-outlined">refresh</span> Actualiser
+            </button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Réf</th>
+                <th>Matricule</th>
+                <th>Étudiant</th>
+                <th>Cours</th>
+                <th>Évaluation</th>
+                <th>Pièce jointe</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="prof-recours-body">
+              <tr><td colspan="8" class="text-center">Chargement…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal container -->
+  <div id="modal-container" class="modal-container hidden">
+    <div class="modal-overlay opacity-0"></div>
+
+    <!-- Treatment modal -->
+    <div id="prof-traitement-modal" class="modal-content opacity-0 scale-95 hidden" style="max-width:700px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="prof-modal-title">Traiter le recours</h3>
+        <button class="close-btn" type="button" id="close-prof-modal"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="modal-body">
+        <!-- Notes section -->
+        <div style="margin-bottom:20px;">
+          <h4 style="margin-bottom:10px;">Notes de l'étudiant</h4>
+          <div id="prof-notes-container" style="max-height:250px;overflow-y:auto;">Chargement…</div>
+        </div>
+        <hr/>
+        <!-- Decision form -->
+        <form id="prof-treatment-form" style="margin-top:16px;">
+          <div class="form-group">
+            <label class="form-label">Décision</label>
+            <select id="prof-decision" class="form-control" required>
+              <option value="">Choisir une décision</option>
+              <option value="accepte">Accepter</option>
+              <option value="refuse">Refuser</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-top:12px;">
+            <label class="form-label">Motif (obligatoire)</label>
+            <textarea id="prof-motif" class="form-control" rows="3" placeholder="Expliquez votre décision..." required></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer footer-bg">
+        <div style="display:flex;gap:8px;justify-content:flex-end;">
+          <button id="prof-save-treatment" class="btn btn-primary" type="button">Valider et envoyer à l'admin</button>
+          <button id="close-prof-modal-2" class="btn-text" type="button">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/recours.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Notifications - Gestion des Recours</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link href="../css/student-common.css" rel="stylesheet" />
+    <link href="../css/notification.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="top-navbar">
+      <div class="logo-area">
+        <span class="app-title">Gestion des Recours</span>
+      </div>
+      <div class="user-area">
+        <div class="user-info">
+          <span class="user-name" id="topNavName">Chargement...</span>
+          <span class="user-id" id="topNavId">ID: --</span>
+        </div>
+        <button class="profile-btn" aria-label="Profil utilisateur">
+          <span class="material-symbols-outlined">account_circle</span>
+        </button>
+      </div>
+    </header>
+
+    <button id="menu-toggle" class="mobile-menu-btn" type="button" aria-label="Ouvrir le menu">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <p class="sidebar-category">Navigation</p>
+        <p class="sidebar-subtitle" id="sidebarPromo">Portail Étudiant</p>
+      </div>
+      <nav class="nav-links">
+        <a class="nav-item" href="dashboard.html">
+          <span class="material-symbols-outlined">dashboard</span>
+          <span class="item-text">Dashboard</span>
+        </a>
+        <a class="nav-item" href="recours.html">
+          <span class="material-symbols-outlined">description</span>
+          <span class="item-text">Recours</span>
+        </a>
+        <a class="nav-item" href="notes.html">
+          <span class="material-symbols-outlined">grade</span>
+          <span class="item-text">Notes</span>
+        </a>
+        <a class="nav-item" href="notification.html">
+          <span class="material-symbols-outlined fill-icon">notifications</span>
+          <span class="item-text">Notifications</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="logout-btn">
+          <span class="material-symbols-outlined">logout</span>
+          <span class="item-text">Déconnexion</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <h1 class="page-title">Notifications & Alertes</h1>
+          <p class="page-subtitle" id="welcomeSubtitle">
+            Restez informé des délais de votre promotion et des décisions de vos recours académiques.
+          </p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-mark-all" onclick="toutMarquerLu()">
+            <span class="material-symbols-outlined">done_all</span>
+            Tout marquer comme lu
+          </button>
+        </div>
+      </header>
+
+      <div id="zonePeriodeActive" style="margin-bottom: 24px;"></div>
+
+      <h3 style="margin: 0 0 16px 0; font-weight: 600; font-size: 18px;">Décisions & Traitements récents</h3>
+      <div class="notifications-list" id="notificationsContainer">
+        <p style="color: #64748b;">Chargement de vos notifications...</p>
+      </div>
+
+    </main>
+
+    <nav class="bottom-navbar">
+      <a class="bottom-nav-item link-secondary" href="dashboard.html">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+      <a class="bottom-nav-item link-secondary" href="recours.html">
+        <span class="material-symbols-outlined">description</span>
+        <span>Recours</span>
+      </a>
+      <a class="bottom-nav-item link-primary" href="notification.html">
+        <div class="badge-wrapper">
+          <span class="material-symbols-outlined fill-icon">notifications</span>
+          <span class="mobile-notification-dot" id="mobileDot" style="display:none;"></span>
+        </div>
+        <span>Alertes</span>
+      </a>
+      <a class="bottom-nav-item link-secondary" href="profil.html">
+        <span class="material-symbols-outlined">account_circle</span>
+        <span>Profil</span>
+      </a>
+    </nav>
+
+    <script src="../js/notification.js"></script>
+    <script src="../js/profile.js"></script>
+    <script src="../js/sidebar.js"></script>
+  </body>
+</html>

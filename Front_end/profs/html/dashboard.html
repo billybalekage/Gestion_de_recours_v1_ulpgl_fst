@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tableau de bord professeur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo"><span class="material-symbols-outlined icon-filled">school</span></div>
+      <div>
+        <h2 class="brand-title">Enseignant</h2>
+        <p class="brand-version">Portal professeur</p>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-link active" href="dashboard.html"><span class="material-symbols-outlined icon-filled">dashboard</span><span>Tableau de bord</span></a>
+      <a class="nav-link" href="students.html"><span class="material-symbols-outlined">groups</span><span>Étudiants</span></a>
+      <a class="nav-link" href="notes.html"><span class="material-symbols-outlined">school</span><span>Notes</span></a>
+      <a class="nav-link" href="recours.html"><span class="material-symbols-outlined">gavel</span><span>Recours</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a class="nav-link logout-link" href="#"><span class="material-symbols-outlined">logout</span><span>Déconnexion</span></a>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button id="menu-toggle" class="mobile-menu-btn"><span class="material-symbols-outlined">menu</span></button>
+        <h1 class="main-title">Tableau de bord</h1>
+      </div>
+      <div class="topbar-search">
+        <div class="search-box"><span class="material-symbols-outlined search-icon">search</span><input id="dashboard-search" placeholder="Rechercher..." type="text" /></div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn"><span class="material-symbols-outlined">notifications</span></button>
+        <div class="divider"></div>
+        <div class="user-profile"><div class="user-info"><p class="user-name">Chargement...</p><p class="user-role">Enseignant</p></div></div>
+      </div>
+    </header>
+
+    <main class="content-container">
+      <div class="content-header"><div><p class="subtitle">Professeur</p><h2 class="section-title">Vos indicateurs</h2><p class="section-desc">Suivi des étudiants et des recours assignés par le département.</p></div></div>
+      <div class="stats-grid">
+        <article class="stat-card"><div class="stat-card-header"><div class="stat-icon icon-blue"><span class="material-symbols-outlined icon-filled">groups</span></div></div><h3 class="stat-label">Étudiants département</h3><p class="stat-value" id="stat-total-etudiants">0</p></article>
+        <article class="stat-card"><div class="stat-card-header"><div class="stat-icon icon-secondary"><span class="material-symbols-outlined icon-filled">auto_stories</span></div></div><h3 class="stat-label">Total par promotion</h3><p class="stat-value" id="stat-total-promotions">0</p></article>
+        <article class="stat-card"><div class="stat-card-header"><div class="stat-icon icon-error"><span class="material-symbols-outlined icon-filled">description</span></div></div><h3 class="stat-label">Recours envoyés</h3><p class="stat-value" id="stat-total-recours">0</p></article>
+      </div>
+
+      <div class="table-container">
+        <div class="table-header"><h3 class="table-title">Recours assignés</h3><div class="table-filters"><select id="filter-recours-status" class="form-control"><option value="">Tous statuts</option><option value="en_attente">En attente</option><option value="accepte">Accepté</option><option value="refuse">Refusé</option></select></div></div>
+        <div class="table-responsive"><table><thead><tr><th>Matricule</th><th>Étudiant</th><th>Cours</th><th>Évaluation</th><th>Status</th><th>Action</th></tr></thead><tbody id="recours-table-body"><tr><td colspan="6" class="text-center">Chargement…</td></tr></tbody></table></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="modal-container" class="modal-container hidden"><div class="modal-overlay opacity-0"></div><div id="modal-detail" class="modal-content opacity-0 scale-95 hidden"><div class="modal-header"><h3 class="modal-title">Détails étudiant</h3><button class="close-btn" type="button" onclick="closeModal('modal-detail')"><span class="material-symbols-outlined">close</span></button></div><div class="modal-body" id="modal-detail-body"></div><div class="modal-footer footer-bg"><div class="flex-end"><button class="btn-text" type="button" onclick="closeModal('modal-detail')">Fermer</button></div></div></div></div>
+
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

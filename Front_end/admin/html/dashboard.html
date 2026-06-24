@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Portail administrateur des recours académiques</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link href="../css/dashboard.css" rel="stylesheet" />
+  </head>
+  <body>
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <span class="material-symbols-outlined icon-filled">school</span>
+        </div>
+        <div>
+          <h2 class="brand-title">Admin académique</h2>
+          <p class="brand-version">Portal v2.4</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link active" href="dashboard.html">
+          <span class="material-symbols-outlined icon-filled">dashboard</span>
+          <span>Tableau de bord</span>
+        </a>
+        <a class="nav-link" href="etudiants.html">
+          <span class="material-symbols-outlined">rate_review</span>
+          <span>Étudiants</span>
+        </a>
+        <a class="nav-link" href="professeurs.html">
+          <span class="material-symbols-outlined">inventory_2</span>
+          <span>Professeurs</span>
+        </a>
+        <a class="nav-link" href="recours.html">
+          <span class="material-symbols-outlined">gavel</span>
+          <span>Recours</span>
+        </a>
+        <a class="nav-link" href="atributionCote.html">
+          <span class="material-symbols-outlined">inventory_2</span>
+          <span>Cotes</span>
+        </a>
+        <a class="nav-link" href="cours.html">
+          <span class="material-symbols-outlined">post_add</span>
+          <span>Cours</span>
+        </a>
+        <a class="nav-link" href="configuration.html">
+          <span class="material-symbols-outlined">settings</span>
+          <span>Configuration</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="nav-link" href="#">
+          <span class="material-symbols-outlined">logout</span>
+          <span>Déconnexion</span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="menu-toggle" class="mobile-menu-btn">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+          <h1 class="main-title">Recours académiques</h1>
+        </div>
+
+        <div class="topbar-search">
+          <div class="search-box">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input
+              placeholder="Search appeals, students, or matricule..."
+              type="text"
+            />
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button class="icon-btn">
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <div class="divider"></div>
+          <div class="user-profile">
+            <div class="user-info">
+              <p class="user-name">Chargement...</p>
+              <p class="user-role">Administrateur</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="content-container">
+        <div class="content-header">
+          <div>
+            <p class="subtitle">Management System</p>
+            <h2 class="section-title">Admin Overview</h2>
+            <p class="section-desc">
+              Real-time status of academic petitions and faculty workloads.
+            </p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-secondary">
+              <span class="material-symbols-outlined">filter_list</span> Filtrer
+            </button>
+            <button class="btn btn-primary">
+              <span class="material-symbols-outlined">download</span> Exporter
+              le rapport
+            </button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon icon-blue">
+                <span class="material-symbols-outlined icon-filled"
+                  >library_books</span
+                >
+              </div>
+              <span class="badge badge-tertiary">+2.4%</span>
+            </div>
+            <h3 class="stat-label">Total des cours</h3>
+            <p class="stat-value" id="total-cours">0</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon icon-secondary">
+                <span class="material-symbols-outlined icon-filled"
+                  >groups</span
+                >
+              </div>
+              <span class="badge badge-primary">+128</span>
+            </div>
+            <h3 class="stat-label">Total des étudiants</h3>
+            <p class="stat-value" id="total-etudiants">0</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon icon-error">
+                <span class="material-symbols-outlined icon-filled"
+                  >description</span
+                >
+              </div>
+              <span class="badge badge-error">14 Active</span>
+            </div>
+            <h3 class="stat-label">Total des recours</h3>
+            <p class="stat-value" id="total-recours">0</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon icon-neutral">
+                <span class="material-symbols-outlined icon-filled"
+                  >person_apron</span
+                >
+              </div>
+              <span class="badge badge-neutral">85% active</span>
+            </div>
+            <h3 class="stat-label">Total des professeurs</h3>
+            <p class="stat-value" id="total-profs">0</p>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <div class="table-header">
+            <h3 class="table-title">Recent Appeals</h3>
+            <div class="table-filters">
+              <div class="segmented-control">
+                <button class="control-btn active">All</button>
+                <button class="control-btn">Pending</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Matricule</th>
+                  <th>Nom étudiant</th>
+                  <th>Cours</th>
+                  <th>Évaluation</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="recent-recours-body">
+                <tr class="table-row-hover">
+                  <td>#2024-001</td>
+                  <td class="text-bold">Alice Dubois</td>
+                  <td>M1</td>
+                  <td>Informatique</td>
+                  <td>
+                    <span class="status-badge status-pending">En attente</span>
+                  </td>
+                  <td>
+                    <button
+                      class="action-link text-primary-color mr-md"
+                      onclick="toggleModal('modal-details')"
+                    >
+                      Voir
+                    </button>
+                    <button
+                      class="btn btn-primary"
+                      onclick="openTraiterModal(${recours.id})"
+                    >
+                      Traiter
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-footer">
+            <p class="footer-text">Affichage de 1 sur 1 recours récents</p>
+            <div class="pagination-btns">
+              <button class="pag-btn">
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button class="pag-btn">
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../js/admin/apiHelper.js"></script>
+
+    <div id="modal-container" class="hidden">
+      <div class="modal-overlay"></div>
+
+      <div id="modal-decision" class="modal-content max-width-md hidden">
+        <div class="modal-header">
+          <h3 class="modal-title">Traiter le recours</h3>
+          <button class="close-btn" onclick="toggleModal('modal-decision')">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="modal-body form-spacing">
+          <form>
+            <div class="form-grid">
+              <div class="form-group">
+                <input
+                  class="form-control readonly-bg"
+                  placeholder=" "
+                  readonly
+                  type="text"
+                  value="#2024-001"
+                />
+                <label class="floating-label">Matricule</label>
+              </div>
+              <div class="form-group">
+                <input
+                  class="form-control readonly-bg"
+                  placeholder=" "
+                  readonly
+                  type="text"
+                  value="Alice Dubois"
+                />
+                <label class="floating-label">Nom de l’étudiant</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <select class="form-control select-bg">
+                <option value="">Sélectionner une décision</option>
+                <option value="recu">Reçu (Accordé)</option>
+                <option value="rejete">Rejeté</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <textarea
+                class="form-control"
+                placeholder=" "
+                rows="3"
+              ></textarea>
+              <label class="floating-label">Motif détaillé</label>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <input class="form-control" placeholder=" " type="text" />
+                <label class="floating-label">Professeur(s) concerné(s)</label>
+              </div>
+              <div class="form-group">
+                <select class="form-control multi-select" multiple>
+                  <option>Intelligence Artificielle</option>
+                  <option>Systèmes Distribués</option>
+                  <option>Bases de Données</option>
+                  <option>Algorithmique</option>
+                </select>
+                <p class="select-hint">
+                  Maintenez Ctrl pour sélection multiple
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer footer-bg flex-end">
+          <button class="btn-text" onclick="toggleModal('modal-decision')">
+            Annuler
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="toggleModal('modal-decision')"
+          >
+            Enregistrer la décision
+          </button>
+        </div>
+      </div>
+
+      <div id="modal-details" class="modal-content max-width-md hidden">
+        <div class="modal-header">
+          <h3 class="modal-title">Détails du recours</h3>
+          <button class="close-btn" onclick="toggleModal('modal-details')">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="modal-body form-spacing">
+          <div class="user-detail-header">
+            <div class="detail-avatar">
+              <span class="material-symbols-outlined icon-large"
+                >account_circle</span
+              >
+            </div>
+            <div>
+              <h4 class="detail-name">Alice Dubois</h4>
+              <p class="detail-sub">Matricule: #2024-001 | M1 Informatique</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div>
+              <p class="info-label">Cours concernés</p>
+              <p class="info-value">Théorie des Graphes, Compilation</p>
+            </div>
+            <div>
+              <p class="info-label">Objectif</p>
+              <p class="info-value">Révision de la note finale</p>
+            </div>
+          </div>
+          <div>
+            <p class="info-label">Pièces jointes</p>
+            <div class="attachments-list">
+              <div class="attachment-item">
+                <div class="attachment-left">
+                  <span class="material-symbols-outlined">picture_as_pdf</span>
+                  <span>justificatif_absence.pdf</span>
+                </div>
+                <span class="material-symbols-outlined download-icon"
+                  >download</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="grade-box">
+            <p class="grade-label">Note actuelle</p>
+            <p class="grade-value">08 / 20</p>
+          </div>
+        </div>
+        <div class="modal-footer footer-bg flex-end">
+          <button class="btn btn-dark" onclick="toggleModal('modal-details')">
+            Fermer
+          </button>
+          <button class="btn btn-dark" onclick="toggleModal('modal-details')">
+            envoyer au professeur
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/admin/nav.js"></script>
+    <script src="../js/admin/dashboard.js"></script>
+  </body>
+</html>

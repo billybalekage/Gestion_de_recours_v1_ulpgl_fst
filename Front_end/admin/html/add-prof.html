@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajouter professeur</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/professeurs.css" />
+  </head>
+  <body>
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-container">
+          <span class="material-symbols-outlined icon-filled"
+            >account_balance</span
+          >
+        </div>
+        <div>
+          <h1 class="logo-title">Admin académique</h1>
+          <p class="logo-subtitle">Portal v2.4</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link active" href="dashboard.html">
+          <span class="material-symbols-outlined icon-filled">dashboard</span>
+          <span>Tableau de bord</span>
+        </a>
+        <a class="nav-link" href="etudiants.html">
+          <span class="material-symbols-outlined">rate_review</span>
+          <span>Étudiants</span>
+        </a>
+        <a class="nav-link" href="professeurs.html">
+          <span class="material-symbols-outlined">inventory_2</span>
+          <span>Professeurs</span>
+        </a>
+        <a class="nav-link" href="recours.html">
+          <span class="material-symbols-outlined">gavel</span>
+          <span>Recours</span>
+        </a>
+        <a class="nav-link" href="atributionCote.html">
+          <span class="material-symbols-outlined">inventory_2</span>
+          <span>Cotes</span>
+        </a>
+        <a class="nav-link" href="cours.html">
+          <span class="material-symbols-outlined">post_add</span>
+          <span>Cours</span>
+        </a>
+        <a class="nav-link" href="configuration.html">
+          <span class="material-symbols-outlined">settings</span>
+          <span>Configuration</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="nav-link logout-link" href="#">
+          <span class="material-symbols-outlined">logout</span>
+          <span class="nav-text">Déconnexion</span>
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="topbar-left">
+          <button id="menu-toggle" class="mobile-menu-btn">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+        </div>
+        <div class="search-container">
+          <span class="material-symbols-outlined search-icon">search</span>
+          <input
+            id="prof-search"
+            class="search-input"
+            placeholder="Rechercher un professeur, un département..."
+            type="text"
+          />
+        </div>
+
+        <div class="header-actions">
+          <div class="actions-buttons">
+            <button class="icon-btn btn-notification">
+              <span class="material-symbols-outlined">notifications</span>
+              <span class="notification-badge"></span>
+            </button>
+            <button class="icon-btn">
+              <span class="material-symbols-outlined">help_outline</span>
+            </button>
+          </div>
+
+          <div class="user-profile">
+            <div class="user-info">
+              <p class="user-name">Dr. Jean Dupont</p>
+              <p class="user-role">Administrateur</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="page-header-container">
+        <h2 class="page-title">Ajouter un professeur</h2>
+      </div>
+      <div class="form-card">
+        <form id="add-prof-form-page" class="form-grid">
+<div class="form-group">
+  <label>Nom</label>
+  <input id="prof-name" class="form-input" required type="text" />
+</div>
+<div class="form-group">
+  <label>Postnom</label>
+  <input id="prof-postnom" class="form-input" required type="text" />
+</div>
+
+<div class="form-group">
+  <label>Prénom</label>
+  <input id="prof-prenom" class="form-input" required type="text" />
+</div>
+<div class="form-group">
+  <label>Etat civile</label>
+  <input id="prof-etat-civil" class="form-input" required type="text" />
+</div>
+
+<div class="form-group">
+  <label>Matricule</label>
+  <input id="prof-matricule" class="form-input" required type="text" />
+</div>
+          <div class="form-group">
+            <label>Département</label>
+            <select id="prof-department" class="form-input" required>
+              <option value="">Sélectionner un département</option>
+              <option value="Genie civile">Genie civile</option>
+              <option value="Genie electique">Genie electique</option>
+              <option value="Genie mecanique">Genie mecanique</option>
+              <option value="Genie informatique">Genie mecanique</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input id="prof-email" class="form-input" required type="email" />
+          </div>
+          <div class="form-group">
+            <label>sexe</label>
+            <select id="prof-sexe" class="form-input" required>
+              <option value="">Sélectionner le sexe</option>
+              <option value="M">Masculin</option>
+              <option value="F">Féminin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>date de naissance</label>
+            <input id="prof-date-naissance" class="form-input" required type="date" />
+          </div>
+          <div class="form-group">
+            <label>Profession</label>
+            <input id="prof-profession" class="form-input" required type="text" />
+          </div>
+        </div>
+          <div class="form-actions">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              onclick="window.history.back()"
+            >
+              Annuler
+            </button>
+            <button class="btn btn-primary" type="submit">Créer</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script src="../js/admin/apiHelper.js"></script>
+    <script>
+      document
+        .getElementById("add-prof-form-page")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const payload = {
+            name: document.getElementById("prof-name")?.value.trim(),
+            postnom: document.getElementById("prof-postnom")?.value.trim(),
+            prenom: document.getElementById("prof-prenom")?.value.trim(),
+            matricule: document.getElementById("prof-matricule")?.value.trim(),
+            department: document
+              .getElementById("prof-department")
+              ?.value.trim(),
+            email: document.getElementById("prof-email")?.value.trim(),
+            sexe: document.getElementById("prof-sexe")?.value || "",
+            date_naissance: document
+              .getElementById("prof-date-naissance")
+              ?.value.trim(),
+            etat_civil: document.getElementById("prof-etat-civil")?.value || "",
+            profession: document.getElementById("prof-profession")?.value || "",
+            telephone: document.getElementById("prof-telephone")?.value.trim(),
+            password: document.getElementById("prof-telephone")?.value.trim(),
+          };
+          try {
+            await AdminAPI.post("/profs/add", payload);
+            alert("Professeur ajouté");
+            window.location.href = "professeurs.html";
+          } catch (err) {
+            console.error(err);
+            alert("Erreur lors de la création");
+          }
+        });
+    </script>
+  </body>
+</html>

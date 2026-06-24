@@ -1,0 +1,87 @@
+<!doctype html>
+<html class="light" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Ajouter un Cours - Administration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/cours.css" />
+  </head>
+  </head>
+  </head>
+  <body class="bg-surface">
+    <div class="container" style="max-width: 32rem; margin-top: 48px;">
+      
+      <div class="page-header" style="margin-bottom: 24px;">
+        <div>
+          <h2 class="text-headline-md text-primary">Nouveau cours</h2>
+          <p class="text-body-md text-outline">Remplissez les détails pour ajouter un cours dans la base de données.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <form id="add-course-form" class="modal-form" style="display: flex; flex-direction: column; gap: 20px;">
+          
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+            <label class="text-label-md text-outline uppercase">Nom du cours</label>
+            <input id="course-title" class="form-input" placeholder="Ex. Algorithmes" type="text" required />
+          </div>
+
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+            <label class="text-label-md text-outline uppercase">Description</label>
+            <textarea id="course-description" class="form-input" rows="3" placeholder="Description optionnelle"></textarea>
+          </div>
+
+          <div style="display: grid; grid-template-cols: repeat(2, 1fr); gap: 16px;">
+            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+              <label class="text-label-md text-outline uppercase">Crédits</label>
+              <input id="course-credits" class="form-input" placeholder="Ex. 6" type="number" min="0" required />
+            </div>
+            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+              <label class="text-label-md text-outline uppercase">Professeur</label>
+              <select id="course-professor" class="form-input" required>
+                <option value="">Chargement...</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-cols: repeat(2, 1fr); gap: 16px;">
+            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+              <label class="text-label-md text-outline uppercase">Promotion</label>
+              <select id="course-promotion" class="form-input" required>
+                <option value="">Choisir</option>
+                <option value="L1">L1</option>
+                <option value="L2">L2</option>
+                <option value="L3">L3</option>
+                <option value="M1">M1</option>
+                <option value="M2">M2</option>
+              </select>
+            </div>
+            <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
+              <label class="text-label-md text-outline uppercase">Département</label>
+              <select id="course-department" class="form-input" required>
+                <option value="">Choisir</option>
+                <option value="genie_informatique">Génie informatique</option>
+                <option value="genie_mecanique">Génie mécanique</option>
+                <option value="genie_civil">Génie civil</option>
+                <option value="genie_electrique">Génie électrique</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-actions" style="display: flex; justify-content: flex-end; gap: 16px; margin-top: 12px;">
+            <button class="btn-text" type="button" onclick="window.location.href='cours.html'">Annuler</button>
+            <button class="btn btn-primary" type="submit">Enregistrer le cours</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <script src="../js/admin/apiHelper.js"></script>
+    <script src="../js/admin/ajouter-cours.js"></script>
+  </body>
+</html>
