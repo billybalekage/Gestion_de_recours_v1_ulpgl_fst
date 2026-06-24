@@ -4,3 +4,4 @@ backend/node_modules/
 backend/.env
 .claude
 .vscode
+.DS_Store
